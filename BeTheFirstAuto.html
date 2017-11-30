@@ -108,7 +108,7 @@ h2 {
 
 document.getElementById('buttOff').disabled = !document.getElementById('buttOff').disabled;
 
-const noun = [
+const lines = [
 
   //impression
 'do an impression of Donald Trump',
@@ -351,22 +351,12 @@ const noun = [
 '',
 ];
 
-
-
-
-function select(arr) {
-  return _.sample(arr);
-}
-
-
-const syntax = [
-  () => `...${select(noun)}`,
-
-];
-
+let currentLine = -1;
+const shuffledLines = _.shuffle(lines);
 
 function genLine() {
-  document.querySelector('.idea').innerHTML = select(syntax)();
+  currentLine = currentLine + 1;
+  document.querySelector('.idea').innerHTML = shuffledLines[currentLine];
 }
 
 genLine();
