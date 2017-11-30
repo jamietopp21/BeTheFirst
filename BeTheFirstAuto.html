@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Be The First!</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/lodash/4/lodash.min.js"></script>
+<style>
+  .genButton {
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 48px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+
+
+}
+  </style>
+<style id="jsbin-css">
+body {
+  background: #FFB500;
+  padding: 1rem;
+}
+
+h1 {
+  font-family: Lato, sans-serif;
+  font-weight: 900;
+  font-size: 5rem;
+  color: #ffffff;
+  text-align: center;
+  min-height: 30vh;
+  width: 80%;
+  margin: 0 auto;
+
+
+
+
+}
+
+h2 {
+  font-family: Lato, sans-serif;
+  font-weight: 900;
+  font-size: 3.8rem;
+  color: #ffffff;
+  text-align: center;
+
+  
+}
+
+
+.progressbar {
+  width: 80%;
+  margin: 25px auto;
+  border: solid 1px #000;
+}
+.progressbar .inner {
+  height: 15px;
+  animation: progressbar-countdown;
+  /* Placeholder, this will be updated using javascript */
+  animation-duration: 40s;
+  /* We stop in the end */
+  animation-iteration-count: 12000000;
+  /* Stay on pause when the animation is finished finished */
+  animation-fill-mode: forwards;
+  /* We start paused, we start the animation using javascript */
+  animation-play-state: paused;
+  /* We want a linear animation, ease-out is standard */
+  animation-timing-function: linear;
+}
+@keyframes progressbar-countdown {
+  0% {
+    width: 100%;
+    background: #0F0;
+  }
+  100% {
+    width: 0%;
+    background: #0F0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <h2>Be the first to...</h2>
+  <h1 class="idea"></h1>
+  <center><button class="genButton"> <b> New </b></button> </center>
+  <br>
+  <button class="autoButtonOn" id = 'buttOn'>  <b> Auto On (15 sec) </b></button>
+  <br>
+<button class="autoButtonOff" id = 'buttOff'> <b> Auto Off </b></button>
+  
+
+
+<div id='progressbar2'></div>
+
+
+  <script id="jsbin-javascript">
+
+
+document.getElementById('buttOff').disabled = !document.getElementById('buttOff').disabled;
+
+const noun = [
+
+  //impression
+'do an impression of Donald Trump',
+'do an impression of an elephant',
+'do an impression of a Dalek',
+'do an impression of a cow',
+'do an impression of a Captain Jack Sparrow',
+'do an impression of a cat',
+'do an impression of a trumpet',
+'do an impression of Morgan Freeman',
+'do an impression of The Queen',
+'do an impression of another player',
+'say something in an Australian accent',
+'say something in an accent which isn\'t your own',
+'say something in French',
+'say something in German',
+'say something in Spanish',
+'do an impression of a Harry Potter character',
+'do an impression of another player',
+'do an impression of your parents',
+'do an impression of another player\'s parents',
+
+
+//name
+'name an episode of Friends',
+'name a non-human Harry Potter character',
+'name a Harry Potter Character',
+'name a bodypart that begins with R',
+'name a body part that begins with E',
+'name a bodypart that begins with K',
+'name a Teenage Mutuant Ninja Turtle',
+'name a type of pie',
+'name a chess piece',
+'name a cheese',
+'name a spice girl',
+'name a song by Take That',
+'name a herb',
+'name a condiment',
+'name a famous fox',
+'name an author',
+'name a pizza topping',
+'name a sex position while demonstrating it to the group',
+'name a plant',
+'name an animal which can fly ',
+'name an inbetweener',
+'name a food that begins with K',
+'name a food that begins with P',
+'name a food that begins with A',
+'name a Johnny Depp movie',
+'name a Michael Jackson song',
+'name a McDonalds menu item',
+'name a fruit',
+'name a book that begins with L',
+'name a job that begins with G',
+'name a member of the royal family',
+'name a show on CBBC',
+'name a Harry Potter House',
+'name a member of S-Club 7',
+'name a sci-fi film',
+'name a flavour of crisp',
+'name a brand of phone',
+'name a chocolate bar',
+'name an alcoholic drink',
+'name something you grill',
+'name a food which isn\'t vegan',
+'name a video game series',
+'name a mututal friend of 2 people in the room',
+'name an X-Factor judge',
+'name a thing you might buy from a Chineese takeaway',
+'name a Big Bang theory character',
+'name a room of the house',
+'name a famous couple',
+'name a primary colour',
+'name a fizzy drink',
+'name a song by the Beatles',
+'name a drink which contains caffine',
+'name a classical composer',
+'name a Microsoft Office program',
+'name a Teletubby',
+'name a flower',
+'name a stringed instrument',
+'name a famous scientist',
+'name a philospher',
+'name a school subject',
+'name a piece of cutlery',
+'name an album by Justin Beiber',
+'name a disease',
+'name a pokemon',
+'name someone who is dead',
+'name another player\'s pet',
+'name a religion',
+'name an ex-primeminister',
+'name a city in France',
+'name a city in Germany',
+'name a porn star',
+'name a county in the United Kingdom',
+'name a STD',
+'name a horror movie',
+'genre of porn',
+
+//action
+'sneeze',
+'shake your own hand',
+'say the number of people in the room',
+'take off a shoe',
+'take off a sock',
+'find an egg',
+'bring something from the kitchen and eat it in front of everyone',
+'point at someone taller than you',
+'point at someone shorter than you',
+'point at someone younger than you',
+'point at someone older than you',
+'point at the oldest player',
+'point at the youngest player',
+'point at the shortest player',
+'point at the tallest player',
+'touch a beard',
+'touch a part of your body that begins with T',
+'act out a scene from The Bible',
+'cast a spell from Harry Potter',
+'stand up',
+'leave the room',
+'shout the time',
+'do an armpit fart',
+'lie down on the floor',
+'take a selfie',
+'burp',
+'fart',
+'show the group your ID',
+'get out a fiver',
+'order something from amazon',
+'clap 3 times',
+'act out a scene from Harry Potter',
+'act out a scene from Game of Thrones',
+'act out a scene from Gossip Girl',
+'act out a scene from Shrek',
+'act out a scene from Lord of the Rings',
+'act out a scene from Grease',
+'sing a song with your name in it',
+'start a Facebook live stream',
+'finish your drink',
+'act out a scene from Rick and Morty',
+'lick another player',
+'remove an item of clothing',
+'put on an item of clothing',
+'touch your toes',
+'tell everyone when you had your last poo',
+'twerk',
+'kiss someone in the room',
+'flip a coin',
+'switch off all the lights',
+'lick your nose',
+'have a drink',
+'to eat a spoon of mayo',
+'find a video on Youtube with less than 10 views',
+'tag someone in the room in a dank meme',
+'read an extract from The Bible',
+'slap themselves in the face',
+'touch a door',
+'touch a window',
+'touch a wall',
+'sing a sitcom theme',
+'sing a theme tune',
+'pick your nose',
+'bring something from your bedroom',
+'bring in a leaf from outside',
+
+
+//social
+'add a friend on Facebook',
+'follow a supermarket on Twitter',
+'text a sibling the phrase \'We are family!\'',
+'text a friend',
+'text a person who isn’t in the room',
+'text a relative',
+'take a selfie on someone else’s phone',
+'shout the number of people in the room',
+'text someone in the room',
+'text the person next to you',
+'snapchat the person next to you',
+'tweet Donald Trump',
+'tweet Theresa May',
+'ring a sibling and tell them you love them',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+
+
+
+//BrainGame
+'say the 11th letter of the alphabet',
+'say the 17th letter of the alphabet',
+'say the 20th letter of the alphabet',
+'say the 6th letter of the alphabet',
+'name a celebrity with the same initals as you',
+'name a word which is a noun and a verb',
+'name another player\'s birthday',
+'name another player\'s full name',
+'name a 2 digit cube number',
+'name a 3 digit cube number',
+'name a 2 digit prime number',
+'name a 2 digit square number',
+'name 3 crisp flavours',
+'name something you can buy at Wetherspoons',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+
+
+//misc
+'touch a player while shouting their mother\'s name',
+'touch a player while shouting your father\'s name',
+'',
+'',
+'',
+'',
+'',
+'',
+'',
+];
+
+
+
+
+function select(arr) {
+  return _.sample(arr);
+}
+
+
+const syntax = [
+  () => `...${select(noun)}`,
+
+];
+
+
+function genLine() {
+  document.querySelector('.idea').innerHTML = select(syntax)();
+}
+
+genLine();
+
+
+ var timerId = 0;
+
+function genLineRepOn()
+{
+  //var progbar = document.createElement('div');
+  //progbar.id = 'progressbar2';
+  const container = document.getElementById('progressbar2');
+  const childProgress = document.createElement('div');
+  container.appendChild(childProgress);
+  createProgressbar(childProgress, '15s');
+
+  var tSec = 15000
+    timerId = setInterval(genLine, tSec)
+
+    document.getElementById('progressbar2').style.display = 'block';
+    document.getElementById('buttOn').disabled = !document.getElementById('buttOn').disabled;
+    document.getElementById('buttOff').disabled = !document.getElementById('buttOff').disabled;
+
+}
+
+
+function genLineRepOff()
+{
+  var tSec = 100000000
+       clearInterval(timerId);
+
+ document.getElementById('progressbar2').children[0].remove();
+ document.getElementById('buttOn').disabled = !document.getElementById('buttOn').disabled;
+ document.getElementById('buttOff').disabled = !document.getElementById('buttOff').disabled;
+
+
+}
+
+
+
+document.querySelector('.genButton').addEventListener('click', () => genLine())
+document.querySelector('.autoButtonOn').addEventListener('click', () => genLineRepOn())
+document.querySelector('.autoButtonOff').addEventListener('click', () => genLineRepOff())
+
+
+
+function createProgressbar(progressbar, duration, callback) {
+  // We select the div that we want to turn into a progressbar
+  progressbar.className = 'progressbar';
+
+  // We create the div that changes width to show progress
+  var progressbarinner = document.createElement('div');
+  progressbarinner.className = 'inner';
+
+  // Now we set the animation parameters
+  progressbarinner.style.animationDuration = duration;
+
+  // Eventually couple a callback
+  if (typeof(callback) === 'function') {
+    progressbarinner.addEventListener('animationend', callback);
+  }
+  // Append the progressbar to the main progressbardiv
+  progressbar.appendChild(progressbarinner);
+
+  // When everything is set up we start the animation
+  progressbarinner.style.animationPlayState = 'running';
+}
+
+addEventListener('load', function() {
+  //createProgressbar('progressbar1', '40s');
+  //createProgressbar('progressbar2', '30s');
+});
+
+
+
+
+</script>
+</body>
+</html>
